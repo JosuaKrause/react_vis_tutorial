@@ -12,6 +12,19 @@ const Rect = styled.rect`
   fill: none;
 `
 
+function doFetch(url, cb) {
+  fetch(`${window.PUBLIC_URL}${url}`).then((data) => {
+    if(data.status !== 200 || !data.ok) {
+      throw new Error(`server returned ${data.status}${data.ok ? " ok" : ""}`);
+    }
+    const ct = data.headers.get("content-type");
+    if(ct && ct.includes("application/json")) {
+      return data.json();
+    }
+    throw new TypeError("response not JSON encoded");
+  }).then(cb);
+} // doFetch
+
 class Bars extends PureComponent {
   render() {
     const { values, w, h } = this.props;
@@ -31,10 +44,7 @@ class BarChart extends PureComponent {
   }
 
   componentDidMount() {
-    fetch(`${window.PUBLIC_URL}/data.json`).then((data) => {
-      // TODO do error checking etc.
-      return data.json();
-    }).then((data) => {
+    doFetch("/data.json", (data) => {
       if(this.unmounted) return;
       this.setState({
         values: data["values"],
