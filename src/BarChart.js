@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 const Svg = styled.svg`
-  width: 300px;
-  height: 150px;
+  width: ${({ theme }) => theme.width}px;
+  height: ${({ theme }) => theme.height}px;
 `
 
 const Rect = styled.rect`
@@ -14,12 +14,14 @@ const Rect = styled.rect`
 
 class BarChart extends PureComponent {
   render() {
+    const { theme } = this.props;
+    const { width, height } = theme;
     return (
-      <Svg width={300} height={150}>
-        <Rect x={0} y={0} width={300} height={150} />
+      <Svg width={width} height={height}>
+        <Rect x={0} y={0} width={width} height={height} />
       </Svg>
     );
   }
 } // BarChart
 
-export default BarChart;
+export default withTheme(BarChart);
