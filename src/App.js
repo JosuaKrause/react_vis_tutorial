@@ -1,13 +1,26 @@
 import React, { PureComponent } from 'react';
+import styled from 'styled-components';
+
+const CenterV = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+`
+
+const CenterH = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 class App extends PureComponent {
   render() {
     return (
-      <div>
-        <div>
+      <CenterV>
+        <CenterH>
           <span>Hello</span>
-        </div>
-      </div>
+        </CenterH>
+      </CenterV>
     );
   }
 } // App
