@@ -12,6 +12,12 @@ const Rect = styled.rect`
   fill: none;
 `
 
+const BarRect = styled.rect`
+  stroke: black;
+  stroke-width: 0.5;
+  fill: ${({ theme: { colors }, ix }) => colors[ix % colors.length]};
+`
+
 function doFetch(url, cb) {
   fetch(`${window.PUBLIC_URL}${url}`).then((data) => {
     if(data.status !== 200 || !data.ok) {
@@ -25,11 +31,68 @@ function doFetch(url, cb) {
   }).then(cb);
 } // doFetch
 
-class Bars extends PureComponent {
+class Stack extends PureComponent {
   render() {
-    const { values, w, h } = this.props;
+    const { x, dx, ys, h } = this.props;
+    let lastY = h;
     return (
-      <text x={w * 0.5} y={h * 0.5}>{values.length}</text>
+      <g>
+      {
+        ys.map((y, ix) => {
+          const prevY = lastY;
+          lastY = y;
+          return (
+            <BarRect key={ix} ix={ix} x={x} width={dx}
+              y={y} height={prevY - y} />
+          );
+        })
+      }
+      </g>
+    );
+  }
+}
+
+class Bars extends PureComponent {
+  componentWillMount() {
+    this.propsToState({}, this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.propsToState(this.props, nextProps);
+  }
+
+  propsToState(props, nextProps) {
+    const { values, w, h } = nextProps;
+    if(props.values !== values || props.w !== w) {
+      const dx = w / values.length;
+      const xs = values.map((_, ix) => ix * dx);
+      this.setState({ dx, xs });
+    }
+    if(props.values !== values || props.h !== h) {
+      const max = values.reduce((p, vals) =>
+        Math.max(p, vals.reduce((pp, v) => pp + +v, 0)), 0);
+      const yss = values.map((vals) => {
+        let sum = 0;
+        return vals.map((v) => {
+          sum += +v;
+          return h - sum * h / max;
+        });
+      });
+      this.setState({ yss });
+    }
+  }
+
+  render() {
+    const { h } = this.props;
+    const { dx, xs, yss } = this.state;
+    return (
+      <g>
+      {
+        xs.map((x, ix) => (
+          <Stack key={ix} x={x} dx={dx} ys={yss[ix]} h={h} />
+        ))
+      }
+      </g>
     );
   }
 } // Bars
