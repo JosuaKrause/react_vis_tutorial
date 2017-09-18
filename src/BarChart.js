@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled, { withTheme } from 'styled-components';
+import { doFetch, columnSum } from './util.js';
 
 const Svg = styled.svg`
   width: ${({ theme }) => theme.width}px;
@@ -17,19 +18,6 @@ const BarRect = styled.rect`
   stroke-width: 0.5;
   fill: ${({ theme: { colors }, ix }) => colors[ix % colors.length]};
 `
-
-function doFetch(url, cb) {
-  fetch(`${window.PUBLIC_URL}${url}`).then((data) => {
-    if(data.status !== 200 || !data.ok) {
-      throw new Error(`server returned ${data.status}${data.ok ? " ok" : ""}`);
-    }
-    const ct = data.headers.get("content-type");
-    if(ct && ct.includes("application/json")) {
-      return data.json();
-    }
-    throw new TypeError("response not JSON encoded");
-  }).then(cb);
-} // doFetch
 
 class Stack extends PureComponent {
   render() {
@@ -62,16 +50,20 @@ class Bars extends PureComponent {
   }
 
   propsToState(props, nextProps) {
-    const { values, w, h } = nextProps;
+    const { values, w, h, isPercentage } = nextProps;
     if(props.values !== values || props.w !== w) {
       const dx = w / values.length;
       const xs = values.map((_, ix) => ix * dx);
       this.setState({ dx, xs });
     }
-    if(props.values !== values || props.h !== h) {
-      const max = values.reduce((p, vals) =>
-        Math.max(p, vals.reduce((pp, v) => pp + +v, 0)), 0);
+    if(props.values !== values || props.h !== h
+        || props.isPercentage !== isPercentage) {
+      const isp = isPercentage;
+      const amax = isp ? 0 : values.reduce((p, vals) =>
+        Math.max(p, columnSum(vals)), 0);
       const yss = values.map((vals) => {
+        const cmax = isp ? columnSum(vals) : 0;
+        const max = isp ? cmax : amax;
         let sum = 0;
         return vals.map((v) => {
           sum += +v;
@@ -125,7 +117,7 @@ class BarChart extends PureComponent {
     return (
       <Svg width={width} height={height}>
         <Rect x={0} y={0} width={width} height={height} />
-        <Bars values={values} w={width} h={height} />
+        <Bars values={values} w={width} h={height} isPercentage={true} />
       </Svg>
     );
   }
