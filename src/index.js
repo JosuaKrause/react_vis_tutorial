@@ -7,25 +7,15 @@ import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import theme from './theme.js';
+import { getReducer, getDefault, fromStorage, toStorage } from './util.js';
 
-const store = createStore((state, action) => {
-  switch(action.type) {
-    case "SET_PERCENTAGE":
-      return {
-        ...state,
-        isPercentage: action.value,
-      };
-    default:
-      return state;
-  }
-}, {
-  isPercentage: JSON.parse(sessionStorage.getItem("percentage")) || false,
+const store = createStore(getReducer(), {
+  isPercentage: getDefault(fromStorage("percentage"), false),
 }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 store.subscribe(() => {
   const state = store.getState();
-  sessionStorage.setItem("percentage",
-    JSON.stringify(state.isPercentage, null, ''));
+  toStorage("percentage", state.isPercentage);
 });
 
 ReactDOM.render((

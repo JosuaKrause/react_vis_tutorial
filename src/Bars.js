@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { columnSum } from './util.js';
+import { columnSum, registerSetAction } from './util.js';
 
 const BarRect = styled.rect`
   stroke: black;
@@ -101,9 +101,6 @@ class Bars extends PureComponent {
 export default connect(
   null,
   (dispatch) => ({
-    setPercentage: (v) => dispatch({
-      type: "SET_PERCENTAGE",
-      value: v,
-    }),
+    setPercentage: registerSetAction("isPercentage", dispatch),
   })
 )(Bars);
