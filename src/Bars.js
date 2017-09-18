@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { columnSum } from './util.js';
 
@@ -6,6 +7,16 @@ const BarRect = styled.rect`
   stroke: black;
   stroke-width: 0.5;
   fill: ${({ theme: { colors }, ix }) => colors[ix % colors.length]};
+`
+
+const MouseRect = styled.rect`
+  pointer-events: all;
+  fill: none;
+  cursor: pointer;
+  &:hover {
+    fill: black;
+    opacity: 0.1;
+  }
 `
 
 class Stack extends PureComponent {
@@ -39,7 +50,12 @@ class Bars extends PureComponent {
   }
 
   propsToState(props, nextProps) {
-    const { values, w, h, isPercentage } = nextProps;
+    const { values, w, h, setPercentage, isPercentage } = nextProps;
+    if(props.setPercentage !== setPercentage) {
+      const that = this;
+      const onClick = () => setPercentage(!that.props.isPercentage);
+      this.setState({ onClick });
+    }
     if(props.values !== values || props.w !== w) {
       const dx = w / values.length;
       const xs = values.map((_, ix) => ix * dx);
@@ -65,17 +81,29 @@ class Bars extends PureComponent {
 
   render() {
     const { h } = this.props;
-    const { dx, xs, yss } = this.state;
+    const { dx, xs, yss, onClick } = this.state;
     return (
       <g>
-      {
-        xs.map((x, ix) => (
-          <Stack key={ix} x={x} dx={dx} ys={yss[ix]} h={h} />
-        ))
-      }
+        {
+          xs.map((x, ix) => (
+            <g key={ix}>
+              <Stack x={x} dx={dx} ys={yss[ix]} h={h} />
+              <MouseRect x={x} width={dx} y={0} height={h}
+                onClick={onClick} />
+            </g>
+          ))
+        }
       </g>
     );
   }
 } // Bars
 
-export default Bars;
+export default connect(
+  null,
+  (dispatch) => ({
+    setPercentage: (v) => dispatch({
+      type: "SET_PERCENTAGE",
+      value: v,
+    }),
+  })
+)(Bars);

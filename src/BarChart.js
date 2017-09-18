@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import styled, { withTheme } from 'styled-components';
 import Bars from './Bars.js';
 import { doFetch } from './util.js';
@@ -37,15 +38,18 @@ class BarChart extends PureComponent {
   }
 
   render() {
-    const { theme: { width, height } } = this.props;
+    const { theme: { width, height }, isPercentage } = this.props;
     const { values } = this.state;
     return (
       <Svg width={width} height={height}>
         <Rect x={0} y={0} width={width} height={height} />
-        <Bars values={values} w={width} h={height} isPercentage={true} />
+        <Bars values={values} isPercentage={isPercentage}
+          w={width} h={height} />
       </Svg>
     );
   }
 } // BarChart
 
-export default withTheme(BarChart);
+export default withTheme(connect(
+  ({ isPercentage }) => ({ isPercentage })
+)(BarChart));
