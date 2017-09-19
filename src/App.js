@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import BarChart from './BarChart.js';
+import DataLoader from './DataLoader.js';
 
 const CenterV = styled.div`
   display: flex;
@@ -19,7 +20,9 @@ class App extends PureComponent {
     return (
       <CenterV>
         <CenterH>
-          <BarChart />
+          <DataLoader>
+            <BarChart />
+          </DataLoader>
         </CenterH>
       </CenterV>
     );
