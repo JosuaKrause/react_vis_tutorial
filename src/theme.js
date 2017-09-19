@@ -14,4 +14,7 @@ export default {
     "#ccebc5",
     "#ffed6f",
   ],
+  transition: {
+    "transition": "all 0.2s ease-in-out"
+  },
 };
