@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import BarChart from './BarChart.js';
+import Scatterplot from './Scatterplot.js';
 import DataLoader from './DataLoader.js';
 
 const CenterV = styled.div`
@@ -22,6 +23,7 @@ class App extends PureComponent {
         <CenterH>
           <DataLoader>
             <BarChart />
+            <Scatterplot />
           </DataLoader>
         </CenterH>
       </CenterV>

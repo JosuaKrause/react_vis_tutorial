@@ -14,6 +14,10 @@ export default {
     "#ccebc5",
     "#ffed6f",
   ],
+  projection: {
+    size: 4,
+    color: "black",
+  },
   transition: {
     "transition": "all 0.2s ease-in-out"
   },

@@ -58,3 +58,10 @@ export function doFetch(url, cb) {
 export function columnSum(vals) {
   return vals.reduce((p, v) => p + +v, 0);
 } // columnSum
+
+export function maxs(values) {
+  return values.reduce((p, vals) => {
+    if(p === null) return vals;
+    return vals.map((v, ix) => Math.max(p[ix], +v));
+  }, null) || [];
+} // maxs

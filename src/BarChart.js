@@ -4,6 +4,7 @@ import styled, { withTheme } from 'styled-components';
 import Bars from './Bars.js';
 
 const Svg = styled.svg`
+  display: block;
   width: ${({ theme }) => theme.width}px;
   height: ${({ theme }) => theme.height}px;
 `
