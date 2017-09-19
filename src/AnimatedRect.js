@@ -46,17 +46,16 @@ class AnimatedRect extends PureComponent {
   }
 
   render() {
-    const {
-      theme, innerRef, x: _x, y: _y, width: _w, height: _h,
-      stroke="black", strokeWidth=0.5, ...rest
-    } = this.props;
+    const { theme, children } = this.props;
     const { initial, x, y, w, h } = this.state;
-    // if you need to know when the animation ends use the onTransitionEnd listener
-    return (
-      <rect x={x} y={y} width={w} height={h}
-        style={!initial ? theme.transition : null}
-        stroke={stroke} strokeWidth={strokeWidth} {...rest} />
-    );
+    const child = React.Children.only(children);
+    return React.cloneElement(child, {
+      x,
+      y,
+      width: w,
+      height: h,
+      style: !initial ? theme.transition : null,
+    });
   }
 } // AnimatedRect
 

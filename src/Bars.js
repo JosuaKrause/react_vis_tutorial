@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 import AnimatedRect from './AnimatedRect.js';
 import { columnSum, registerSetAction } from './util.js';
+
+const BarRect = styled.rect`
+  stroke: black;
+  stroke-width: 0.5;
+  fill: ${({ theme: { colors }, ix }) => colors[ix % colors.length]};
+`
 
 const MouseRect = styled.rect`
   pointer-events: all;
@@ -14,9 +20,9 @@ const MouseRect = styled.rect`
   }
 `
 
-class GenericStack extends PureComponent {
+class Stack extends PureComponent {
   render() {
-    const { theme: { colors }, x, dx, ys, h } = this.props;
+    const { x, dx, ys, h } = this.props;
     let lastY = h;
     return (
       <g>
@@ -25,16 +31,16 @@ class GenericStack extends PureComponent {
           const prevY = lastY;
           lastY = y;
           return (
-            <AnimatedRect key={ix} x={x} width={dx} y={y} height={prevY - y}
-              fill={colors[ix % colors.length]} />
+            <AnimatedRect key={ix} x={x} width={dx} y={y} height={prevY - y}>
+              <BarRect ix={ix} />
+            </AnimatedRect>
           );
         })
       }
       </g>
     );
   }
-} // GenericStack
-const Stack = withTheme(GenericStack);
+} // Stack
 
 class Bars extends PureComponent {
   componentWillMount() {
