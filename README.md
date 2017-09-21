@@ -64,18 +64,18 @@ You can follow along using `git checkout <commithash>`. If the react-server is
 running the website will update automatically. To get back to the latest version
 run `git checkout master`:
 
-- `git checkout c5c2bdd` c5c2bdd48cc1d777f2c488534fab3a1bfa732303 The initial state of the project.
-- `git checkout 3ef3e22` 3ef3e22ecfce1e2b3e771f8eeb1cb5644f20f9fa Using styled components.
-- `git checkout 3b17d8e` 3b17d8ec67e8ed44c43777ea3a30fd976a567147 Create your own react component.
-- `git checkout 283bbb4` 283bbb4d8f33792b94e57dc24489eeb9583d000f Use themes to keep values in one place.
-- `git checkout 0355dfb` 0355dfb0ab3f157a017413279b4121d9151f8e8a Load data from URLs.
-- `git checkout 29654d8` 29654d87c7634b5799ad8fcc3eddea83c7ac4913 Cleaning a bit \#1.
-- `git checkout a5346fa` a5346fa7b0323a5c45de69d75f891fe3e472734c `SVG` bar chart.
-- `git checkout 9104300` 910430025ba7a01c6b3207233ab546608fb5b8a4 Showing percentages.
-- `git checkout 8e29a77` 8e29a77dcdb494c337bb145cdee5dc4b4e5a879e Cleaning a bit \#2.
-- `git checkout 5cef112` 5cef11268951d113a9b79f23fd81983729f5caff Mouse interaction and `redux`.
-- `git checkout 4a29fda` 4a29fda44ed40305f92c604accf58269b4e11ed7 More convenient `redux` use.
-- `git checkout d171860` d1718600db33a19645cee789a42113be14dacb02 Animating transitions.
-- `git checkout 24dcd7a` 24dcd7a1b9290f390da4d6cc8d16dffb751e0f5e Create wrapper component for loading data.
-- `git checkout c4672b7` c4672b70e449f7d7f3a8c68f34f1871a6f7a1adf Make the animated rectangle a wrapper.
-- `git checkout 354b414` 354b414ee9842e5aff98cb97b4f2372fca6f6fac Draw scatterplot using `canvas`.
+- `git checkout c5c2bdd` [The initial state of the project](../../commit/c5c2bdd48cc1d777f2c488534fab3a1bfa732303).
+- `git checkout 3ef3e22` [Using styled components](../../commit/3ef3e22ecfce1e2b3e771f8eeb1cb5644f20f9fa).
+- `git checkout 3b17d8e` [Create your own react component](../../commit/3b17d8ec67e8ed44c43777ea3a30fd976a567147).
+- `git checkout 283bbb4` [Use themes to keep values in one place](../../commit/283bbb4d8f33792b94e57dc24489eeb9583d000f).
+- `git checkout 0355dfb` [Load data from URLs](../../commit/0355dfb0ab3f157a017413279b4121d9151f8e8a).
+- `git checkout 29654d8` [Cleaning a bit \#1](../../commit/29654d87c7634b5799ad8fcc3eddea83c7ac4913).
+- `git checkout a5346fa` [`SVG` bar chart](../../commit/a5346fa7b0323a5c45de69d75f891fe3e472734c).
+- `git checkout 9104300` [Showing percentages](../../commit/910430025ba7a01c6b3207233ab546608fb5b8a4).
+- `git checkout 8e29a77` [Cleaning a bit \#2](../../commit/8e29a77dcdb494c337bb145cdee5dc4b4e5a879e).
+- `git checkout 5cef112` [Mouse interaction and `redux`](../../commit/5cef11268951d113a9b79f23fd81983729f5caff).
+- `git checkout 4a29fda` [More convenient `redux` use](../../commit/4a29fda44ed40305f92c604accf58269b4e11ed7).
+- `git checkout d171860` [Animating transitions](../../commit/d1718600db33a19645cee789a42113be14dacb02).
+- `git checkout 24dcd7a` [Create wrapper component for loading data](../../commit/24dcd7a1b9290f390da4d6cc8d16dffb751e0f5e).
+- `git checkout c4672b7` [Make the animated rectangle a wrapper](../../commit/c4672b70e449f7d7f3a8c68f34f1871a6f7a1adf).
+- `git checkout 354b414` [Draw scatterplot using `canvas`](../../commit/354b414ee9842e5aff98cb97b4f2372fca6f6fac).
