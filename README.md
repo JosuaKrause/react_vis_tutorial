@@ -55,6 +55,7 @@ Browser plugins:
 - `styled-components`
 - `redux` and `react-redux`
 - `knova` and `react-knova` or `pixi.js` (not used in this tutorial as we are manually using `canvas`)
+- [`deck.gl`](https://uber.github.io/deck.gl/#/) (tutorial [here](http://vis17-slides.deck.gl/))
 
 # History
 
